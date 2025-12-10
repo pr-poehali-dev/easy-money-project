@@ -144,15 +144,15 @@ export default function Index() {
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <Icon name="Phone" size={24} className="text-secondary" />
-                  <span className="text-lg">+7 (495) 123-45-67</span>
+                  <span className="text-lg">+7 (927) 388-39-64</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Icon name="Mail" size={24} className="text-secondary" />
-                  <span className="text-lg">info@easymoney.ru</span>
+                  <span className="text-lg">duduru111@mail.ru</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Icon name="MapPin" size={24} className="text-secondary" />
-                  <span className="text-lg">Москва, ул. Инновационная, д. 1</span>
+                  <span className="text-lg">Пензенская область, г. Заречный</span>
                 </div>
               </div>
               <Button className="w-full mt-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-full py-6 text-lg hover-scale">
