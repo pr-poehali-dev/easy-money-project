@@ -186,9 +186,13 @@ export default function Index() {
               ))}
             </div>
             <div className="pt-4 border-t border-white/10">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center mb-3">
                 <span className="text-sm font-medium">Общая выплата работодателям:</span>
                 <span className="text-2xl font-bold text-primary">338 000₽</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
+                <Icon name="Loader2" size={16} className="animate-spin text-primary" />
+                <span>Вывод средств будет осуществлён через определённое время</span>
               </div>
             </div>
           </CardContent>
