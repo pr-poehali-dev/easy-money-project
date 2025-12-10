@@ -7,9 +7,9 @@ export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
 
   const employers = [
-    { name: 'Компания А', amount: '298 000₽' },
-    { name: 'Компания Б', amount: '315 000₽' },
-    { name: 'Компания В', amount: '287 000₽' }
+    { name: 'Диаб Джамаль-Дин', amount: '338 000₽' },
+    { name: 'Чуприков Никита', amount: '338 000₽' },
+    { name: 'Саушкин Александра', amount: '338 000₽' }
   ];
 
   const services = [
@@ -192,7 +192,7 @@ export default function Index() {
 
       <footer className="py-8 px-6 border-t border-border/50 mt-20">
         <div className="container mx-auto text-center text-muted-foreground">
-          <p>© 2024 EasyMoney. Все права защищены.</p>
+          <p>© 2025 EasyMoney</p>
         </div>
       </footer>
     </div>
