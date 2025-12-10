@@ -175,16 +175,21 @@ export default function Index() {
               <Icon name="Users" size={28} className="text-primary" />
               <h4 className="text-lg font-bold">Работодатели</h4>
             </div>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-4">
               {employers.map((employer, index) => (
                 <div 
                   key={index} 
-                  className="flex justify-between items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                  className="p-3 rounded-lg bg-white/5"
                 >
                   <span className="text-sm font-medium">{employer.name}</span>
-                  <span className="text-lg font-bold text-primary">{employer.amount}</span>
                 </div>
               ))}
+            </div>
+            <div className="pt-4 border-t border-white/10">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Общая выплата работодателям:</span>
+                <span className="text-2xl font-bold text-primary">338 000₽</span>
+              </div>
             </div>
           </CardContent>
         </Card>
