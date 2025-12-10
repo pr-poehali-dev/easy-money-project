@@ -14,19 +14,24 @@ export default function Index() {
 
   const services = [
     {
-      icon: 'Zap',
-      title: 'Быстрые переводы',
-      description: 'Мгновенные транзакции 24/7 без выходных и задержек'
+      icon: 'ShoppingBag',
+      title: 'Работаем с Wildberries',
+      description: 'Полная интеграция и поддержка работы на маркетплейсе Wildberries'
+    },
+    {
+      icon: 'Package',
+      title: 'Работаем с Ozon',
+      description: 'Профессиональная работа с платформой Ozon для вашего бизнеса'
+    },
+    {
+      icon: 'Store',
+      title: 'Работаем с Яндекс.Маркет',
+      description: 'Эффективные решения для торговли на Яндекс.Маркет'
     },
     {
       icon: 'Shield',
       title: 'Безопасность',
       description: 'Защита данных на уровне банков с шифрованием'
-    },
-    {
-      icon: 'TrendingUp',
-      title: 'Выгодные условия',
-      description: 'Минимальные комиссии и лучшие курсы обмена'
     },
     {
       icon: 'Headphones',
@@ -113,7 +118,7 @@ export default function Index() {
           <h3 className="text-5xl font-bold text-center mb-16 gradient-text">
             Наши услуги
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {services.map((service, index) => (
               <Card 
                 key={index} 
