@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
+  const [statusMessageIndex, setStatusMessageIndex] = useState(0);
+
+  const statusMessages = [
+    'Вывод средств будет осуществлён через определённое время',
+    'Документ оформляется'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStatusMessageIndex((prev) => (prev + 1) % statusMessages.length);
+    }, 15000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const employers = [
     { name: 'Диаб Джамаль-Дин', amount: '338 000₽' },
@@ -192,7 +206,7 @@ export default function Index() {
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
                 <Icon name="Loader2" size={16} className="animate-spin text-primary" />
-                <span>Вывод средств будет осуществлён через определённое время</span>
+                <span>{statusMessages[statusMessageIndex]}</span>
               </div>
             </div>
           </CardContent>
