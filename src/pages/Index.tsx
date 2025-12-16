@@ -6,6 +6,8 @@ import Icon from '@/components/ui/icon';
 export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
   const [statusMessageIndex, setStatusMessageIndex] = useState(0);
+  const [progress1, setProgress1] = useState(46);
+  const [progress2, setProgress2] = useState(33);
 
   const statusMessages = [
     'Вывод средств будет осуществлён через определённое время',
@@ -13,11 +15,20 @@ export default function Index() {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const messageInterval = setInterval(() => {
       setStatusMessageIndex((prev) => (prev + 1) % statusMessages.length);
     }, 15000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(messageInterval);
+  }, []);
+
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      setProgress1((prev) => (prev < 100 ? prev + 1 : prev));
+      setProgress2((prev) => (prev < 100 ? prev + 1 : prev));
+    }, 3600000); // 1 час = 3600000 мс
+
+    return () => clearInterval(progressInterval);
   }, []);
 
   const employers = [
@@ -209,20 +220,20 @@ export default function Index() {
                 <div>
                   <div className="flex justify-between text-xs mb-1">
                     <span className="text-muted-foreground">Документ 1</span>
-                    <span className="text-primary font-medium">46%</span>
+                    <span className="text-primary font-medium">{progress1}%</span>
                   </div>
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: '46%' }}></div>
+                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress1}%` }}></div>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between text-xs mb-1">
                     <span className="text-muted-foreground">Документ 2</span>
-                    <span className="text-primary font-medium">33%</span>
+                    <span className="text-primary font-medium">{progress2}%</span>
                   </div>
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: '33%' }}></div>
+                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress2}%` }}></div>
                   </div>
                 </div>
 
