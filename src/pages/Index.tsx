@@ -204,7 +204,34 @@ export default function Index() {
                 <span className="text-sm font-medium">Общая выплата работодателям:</span>
                 <span className="text-2xl font-bold text-primary">338 000₽</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
+              
+              <div className="space-y-3 mt-4">
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-muted-foreground">Документ 1</span>
+                    <span className="text-primary font-medium">46%</span>
+                  </div>
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: '46%' }}></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-muted-foreground">Документ 2</span>
+                    <span className="text-primary font-medium">33%</span>
+                  </div>
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: '33%' }}></div>
+                  </div>
+                </div>
+
+                <div className="text-xs text-muted-foreground pt-2 border-t border-white/10">
+                  Оформление документов
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3">
                 <Icon name="Loader2" size={16} className="animate-spin text-primary" />
                 <span>{statusMessages[statusMessageIndex]}</span>
               </div>
