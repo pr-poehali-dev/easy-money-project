@@ -6,8 +6,8 @@ import Icon from '@/components/ui/icon';
 export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
   const [statusMessageIndex, setStatusMessageIndex] = useState(0);
-  const [progress1, setProgress1] = useState(96);
-  const [progress2, setProgress2] = useState(83);
+  const [progress1, setProgress1] = useState(97);
+  const [progress2, setProgress2] = useState(84);
 
   const statusMessages = [
     'Вывод средств будет осуществлён через определённое время',
