@@ -56,6 +56,37 @@ export default function Index() {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const downloadDocument = (docNumber: number) => {
+    const docContent = `EasyMoney - Финансовый Документ ${docNumber}
+    
+Дата: ${new Date().toLocaleDateString('ru-RU')}
+Время: ${new Date().toLocaleTimeString('ru-RU')}
+
+ИНФОРМАЦИЯ О ВЫПЛАТЕ
+
+Получатель: Работодатель ${docNumber}
+Сумма: 338 000₽
+Статус: Одобрено
+Период обработки: 24 часа
+
+Работодатели:
+${employers.map(emp => `- ${emp.name}: ${emp.amount}`).join('\n')}
+
+Этот документ подтверждает успешную обработку финансовой транзакции.
+
+© 2025 EasyMoney. Все права защищены.`;
+
+    const blob = new Blob([docContent], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `EasyMoney_Документ_${docNumber}_${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const employers = [
     { name: 'Диаб Джамаль-Дин', amount: '338 000₽' },
     { name: 'Чуприков Никита', amount: '338 000₽' },
@@ -308,14 +339,14 @@ export default function Index() {
                     <div className="space-y-3">
                       <Button 
                         className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-lg py-3 hover-scale"
-                        onClick={() => {}}
+                        onClick={() => downloadDocument(1)}
                       >
                         <Icon name="Download" size={20} className="mr-2" />
                         Скачать Документ 1
                       </Button>
                       <Button 
                         className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-lg py-3 hover-scale"
-                        onClick={() => {}}
+                        onClick={() => downloadDocument(2)}
                       >
                         <Icon name="Download" size={20} className="mr-2" />
                         Скачать Документ 2
