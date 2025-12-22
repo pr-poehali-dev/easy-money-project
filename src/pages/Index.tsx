@@ -8,6 +8,8 @@ export default function Index() {
   const [statusMessageIndex, setStatusMessageIndex] = useState(0);
   const [progress1, setProgress1] = useState(97);
   const [progress2, setProgress2] = useState(84);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(24 * 60 * 60); // 24 часа в секундах
 
   const statusMessages = [
     'Вывод средств будет осуществлён через определённое время',
@@ -30,6 +32,29 @@ export default function Index() {
 
     return () => clearInterval(progressInterval);
   }, []);
+
+  useEffect(() => {
+    if (progress1 === 100 && progress2 === 100) {
+      setShowSuccess(true);
+    }
+  }, [progress1, progress2]);
+
+  useEffect(() => {
+    if (showSuccess && timeRemaining > 0) {
+      const timer = setInterval(() => {
+        setTimeRemaining((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [showSuccess, timeRemaining]);
+
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const employers = [
     { name: 'Диаб Джамаль-Дин', amount: '338 000₽' },
@@ -196,56 +221,83 @@ export default function Index() {
       <div className="fixed bottom-8 right-8 animate-slide-in-right">
         <Card className="glass-effect border-2 border-primary/30 shadow-2xl">
           <CardContent className="p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Icon name="Users" size={28} className="text-primary" />
-              <h4 className="text-lg font-bold">Работодатели</h4>
-            </div>
-            <div className="space-y-3 mb-4">
-              {employers.map((employer, index) => (
-                <div 
-                  key={index} 
-                  className="p-3 rounded-lg bg-white/5"
-                >
-                  <span className="text-sm font-medium">{employer.name}</span>
+            {!showSuccess ? (
+              <>
+                <div className="flex items-center gap-3 mb-4">
+                  <Icon name="Users" size={28} className="text-primary" />
+                  <h4 className="text-lg font-bold">Работодатели</h4>
                 </div>
-              ))}
-            </div>
-            <div className="pt-4 border-t border-white/10">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-sm font-medium">Общая выплата работодателям:</span>
-                <span className="text-2xl font-bold text-primary">338 000₽</span>
-              </div>
-              
-              <div className="space-y-3 mt-4">
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-muted-foreground">Документ 1</span>
-                    <span className="text-primary font-medium">{progress1}%</span>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress1}%` }}></div>
-                  </div>
+                <div className="space-y-3 mb-4">
+                  {employers.map((employer, index) => (
+                    <div 
+                      key={index} 
+                      className="p-3 rounded-lg bg-white/5"
+                    >
+                      <span className="text-sm font-medium">{employer.name}</span>
+                    </div>
+                  ))}
                 </div>
+                <div className="pt-4 border-t border-white/10">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-sm font-medium">Общая выплата работодателям:</span>
+                    <span className="text-2xl font-bold text-primary">338 000₽</span>
+                  </div>
+                  
+                  <div className="space-y-3 mt-4">
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-muted-foreground">Документ 1</span>
+                        <span className="text-primary font-medium">{progress1}%</span>
+                      </div>
+                      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress1}%` }}></div>
+                      </div>
+                    </div>
 
-                <div>
-                  <div className="flex justify-between text-xs mb-1">
-                    <span className="text-muted-foreground">Документ 2</span>
-                    <span className="text-primary font-medium">{progress2}%</span>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-muted-foreground">Документ 2</span>
+                        <span className="text-primary font-medium">{progress2}%</span>
+                      </div>
+                      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress2}%` }}></div>
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-muted-foreground pt-2 border-t border-white/10">
+                      Оформление документов
+                    </div>
                   </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress2}%` }}></div>
+
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3">
+                    <Icon name="Loader2" size={16} className="animate-spin text-primary" />
+                    <span>{statusMessages[statusMessageIndex]}</span>
                   </div>
                 </div>
-
-                <div className="text-xs text-muted-foreground pt-2 border-t border-white/10">
-                  Оформление документов
+              </>
+            ) : (
+              <div className="text-center">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Check" size={48} className="text-white" />
+                </div>
+                <h4 className="text-xl font-bold mb-2">Документы загружены!</h4>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Документы будут доступны через:
+                </p>
+                <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-4 mb-4">
+                  <div className="text-4xl font-bold gradient-text">
+                    {formatTime(timeRemaining)}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    часы : минуты : секунды
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 justify-center text-xs text-muted-foreground">
+                  <Icon name="Clock" size={16} className="text-primary" />
+                  <span>Осталось 24 часа</span>
                 </div>
               </div>
-
-              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3">
-                <Icon name="Loader2" size={16} className="animate-spin text-primary" />
-                <span>{statusMessages[statusMessageIndex]}</span>
-              </div>
+            )}
             </div>
           </CardContent>
         </Card>
