@@ -6,9 +6,9 @@ import Icon from '@/components/ui/icon';
 export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
   const [statusMessageIndex, setStatusMessageIndex] = useState(0);
-  const [progress1, setProgress1] = useState(97);
-  const [progress2, setProgress2] = useState(84);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [progress1, setProgress1] = useState(100);
+  const [progress2, setProgress2] = useState(100);
+  const [showSuccess, setShowSuccess] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(24 * 60 * 60); // 24 часа в секундах
 
   const statusMessages = [
