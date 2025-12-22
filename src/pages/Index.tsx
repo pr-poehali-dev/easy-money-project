@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { jsPDF } from 'jspdf';
 
 export default function Index() {
   const [activeSection, setActiveSection] = useState('about');
@@ -57,34 +58,45 @@ export default function Index() {
   };
 
   const downloadDocument = (docNumber: number) => {
-    const docContent = `EasyMoney - Финансовый Документ ${docNumber}
+    const doc = new jsPDF();
+    const currentDate = new Date();
     
-Дата: ${new Date().toLocaleDateString('ru-RU')}
-Время: ${new Date().toLocaleTimeString('ru-RU')}
-
-ИНФОРМАЦИЯ О ВЫПЛАТЕ
-
-Получатель: Работодатель ${docNumber}
-Сумма: 338 000₽
-Статус: Одобрено
-Период обработки: 24 часа
-
-Работодатели:
-${employers.map(emp => `- ${emp.name}: ${emp.amount}`).join('\n')}
-
-Этот документ подтверждает успешную обработку финансовой транзакции.
-
-© 2025 EasyMoney. Все права защищены.`;
-
-    const blob = new Blob([docContent], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `EasyMoney_Документ_${docNumber}_${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    doc.setFontSize(20);
+    doc.text('EasyMoney', 105, 20, { align: 'center' });
+    
+    doc.setFontSize(16);
+    doc.text(`Finansovyj Dokument ${docNumber}`, 105, 30, { align: 'center' });
+    
+    doc.setFontSize(10);
+    doc.text(`Data: ${currentDate.toLocaleDateString('ru-RU')}`, 20, 45);
+    doc.text(`Vremya: ${currentDate.toLocaleTimeString('ru-RU')}`, 20, 52);
+    
+    doc.setFontSize(14);
+    doc.text('INFORMACIYA O VYPLATE', 20, 65);
+    
+    doc.setFontSize(11);
+    doc.text(`Poluchatel: Rabotodatel ${docNumber}`, 20, 75);
+    doc.text('Summa: 338 000 RUB', 20, 82);
+    doc.text('Status: Odobreno', 20, 89);
+    doc.text('Period obrabotki: 24 chasa', 20, 96);
+    
+    doc.setFontSize(12);
+    doc.text('Rabotodateli:', 20, 103);
+    
+    let yPos = 110;
+    employers.forEach((emp) => {
+      doc.text(`- ${emp.name}: ${emp.amount}`, 25, yPos);
+      yPos += 7;
+    });
+    
+    doc.setFontSize(10);
+    doc.text('Etot dokument podtverzhdaet uspeshnuyu obrabotku', 20, yPos + 10);
+    doc.text('finansovoj tranzakcii.', 20, yPos + 17);
+    
+    doc.setFontSize(9);
+    doc.text('(c) 2025 EasyMoney. Vse prava zashchishcheny.', 105, 280, { align: 'center' });
+    
+    doc.save(`EasyMoney_Dokument_${docNumber}_${currentDate.toISOString().split('T')[0]}.pdf`);
   };
 
   const employers = [
