@@ -281,21 +281,48 @@ export default function Index() {
                   <Icon name="Check" size={48} className="text-white" />
                 </div>
                 <h4 className="text-xl font-bold mb-2">Документы загружены!</h4>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Документы будут доступны через:
-                </p>
-                <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-4 mb-4">
-                  <div className="text-4xl font-bold gradient-text">
-                    {formatTime(timeRemaining)}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    часы : минуты : секунды
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 justify-center text-xs text-muted-foreground">
-                  <Icon name="Clock" size={16} className="text-primary" />
-                  <span>Осталось 24 часа</span>
-                </div>
+                
+                {timeRemaining > 0 ? (
+                  <>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      Документы будут доступны через:
+                    </p>
+                    <div className="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-4 mb-4">
+                      <div className="text-4xl font-bold gradient-text">
+                        {formatTime(timeRemaining)}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        часы : минуты : секунды
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 justify-center text-xs text-muted-foreground">
+                      <Icon name="Clock" size={16} className="text-primary" />
+                      <span>Ожидайте окончания таймера</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-green-500 mb-6 font-semibold">
+                      ✓ Документы готовы к скачиванию!
+                    </p>
+                    <div className="space-y-3">
+                      <Button 
+                        className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-lg py-3 hover-scale"
+                        onClick={() => {}}
+                      >
+                        <Icon name="Download" size={20} className="mr-2" />
+                        Скачать Документ 1
+                      </Button>
+                      <Button 
+                        className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 rounded-lg py-3 hover-scale"
+                        onClick={() => {}}
+                      >
+                        <Icon name="Download" size={20} className="mr-2" />
+                        Скачать Документ 2
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </CardContent>
